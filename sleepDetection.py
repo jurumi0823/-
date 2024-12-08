@@ -119,4 +119,7 @@ def logout():
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()  # 在第一次執行時建立資料表
-    app.run(debug=True)
+
+    # 獲取 Render 提供的 PORT 環境變數，默認為 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
