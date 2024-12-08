@@ -1,10 +1,12 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SECRET_KEY'] = 'your_secret_key'
+# 使用環境變數，如果環境變數未設置，則使用默認值
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')  # 默認為 SQLite
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')  # 默認密鑰
 db = SQLAlchemy(app)
 
 class User(db.Model):
