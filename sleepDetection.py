@@ -5,7 +5,9 @@ import os
 
 app = Flask(__name__)
 # 使用環境變數，如果環境變數未設置，則使用默認值
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///users.db')  # 默認為 SQLite
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', f'sqlite:///{os.path.join(basedir, "users.db")}')
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'default_secret_key')  # 默認密鑰
 db = SQLAlchemy(app)
 
