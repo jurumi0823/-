@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>主頁</title>
+</head>
+<body>
+    <h1>睡眠紀錄儀表板</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('dashboard') }}">
+        <label for="date">紀錄日期:</label>
+        <input type="date" name="date" required>
+        <br>
+        <label for="sleep_time">入睡時間:</label>
+        <input type="time" name="sleep_time" required>
+        <br>
+        <label for="wake_time">起床時間:</label>
+        <input type="time" name="wake_time" required>
+        <br>
+        <label for="sleep_quality">睡眠品質 (1-5):</label>
+        <input type="number" name="sleep_quality" min="1" max="5" required>
+        <br>
+        <button type="submit">新增紀錄</button>
+    </form>
+    <a href="{{ url_for('view_all_records') }}">查看過去的睡眠紀錄</a>
+    <a href="{{ url_for('logout') }}">登出</a>
+</body>
+</html>
